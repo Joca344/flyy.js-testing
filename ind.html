@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f4f4f9;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .search {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .search input {
+        padding: 10px;
+        width: 60%;
+        max-width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+      .filters {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      .filters button {
+        margin: 5px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 6px;
+        background: #4a90e2;
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .filters button:hover {
+        background: #357ab8;
+      }
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .project {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+        overflow: hidden;
+      }
+      .project:hover {
+        transform: translateY(-5px);
+      }
+      .project img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+      .project h3 {
+        margin: 0 0 10px;
+      }
+      .project span {
+        display: inline-block;
+        background: #eee;
+        padding: 4px 8px;
+        border-radius: 5px;
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Portfolio</h1>
+
+    <div class="search">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search projects..."
+        onkeyup="searchProjects()"
+      />
+    </div>
+
+    <div class="filters">
+      <button onclick="showAll()">All</button>
+      <button onclick="filterCategory('Web')">Web</button>
+      <button onclick="filterCategory('Mobile')">Mobile</button>
+      <button onclick="filterCategory('Design')">Design</button>
+      <button onclick="filterRecent()">Recent</button>
+    </div>
+
+    <div id="projects" class="projects"></div>
+
+    <script>
+      const projects = [
+        {
+          id: 1,
+          title: "Portfolio Website",
+          category: "Web",
+          year: 2025,
+          image: ".vscode/1.jpg",
+        },
+        {
+          id: 2,
+          title: "E-commerce App",
+          category: "Web",
+          year: 2024,
+          image: ".vscode/1.jpg",
+        },
+        {
+          id: 3,
+          title: "Mobile Fitness App",
+          category: "Mobile",
+          year: 2023,
+          image: "https://picsum.photos/400/250?random=5",
+        },
+        {
+          id: 4,
+          title: "Data Dashboard",
+          category: "Web",
+          year: 2022,
+          image: "https://picsum.photos/400/250?random=5",
+        },
+        {
+          id: 5,
+          title: "Travel Journal",
+          category: "Mobile",
+          year: 2025,
+          image: "https://picsum.photos/400/250?random=5",
+        },
+        {
+          id: 6,
+          title: "Creative Portfolio Design",
+          category: "Design",
+          year: 2025,
+          image: "https://picsum.photos/400/250?random=6",
+        },
+        {
+          id: 7,
+          title: "Restaurant Website",
+          category: "Web",
+          year: 2023,
+          image: "https://picsum.photos/400/250?random=7",
+        },
+        {
+          id: 8,
+          title: "Music Streaming App",
+          category: "Mobile",
+          year: 2024,
+          image: "https://picsum.photos/400/250?random=8",
+        },
+        {
+          id: 9,
+          title: "UX Case Study",
+          category: "Design",
+          year: 2022,
+          image: "https://picsum.photos/400/250?random=9",
+        },
+        {
+          id: 10,
+          title: "AI Chatbot Project",
+          category: "Web",
+          year: 2025,
+          image: "https://picsum.photos/400/250?random=10",
+        },
+      ];
+
+      const container = document.getElementById("projects");
+      const searchInput = document.getElementById("searchInput");
+
+      function render(list) {
+        container.innerHTML = "";
+        if (list.length === 0) {
+          container.innerHTML = "<p>No projects found.</p>";
+          return;
+        }
+        list.forEach((p) => {
+          container.innerHTML += `
+          <div class="project">
+            <img src="${p.image}" alt="${p.title}">
+            <h3>${p.title}</h3>
+            <p>Year: ${p.year}</p>
+            <span>${p.category}</span>
+          </div>
+        `;
+        });
+      }
+
+      function showAll() {
+        render(projects);
+      }
+      function filterCategory(cat) {
+        const filtered = projects.filter((p) => p.category === cat);
+        render(filtered);
+      }
+      function filterRecent() {
+        const filtered = projects.filter((p) => p.year > 2023);
+        render(filtered);
+      }
+
+      function searchProjects() {
+        const query = searchInput.value.toLowerCase();
+        const filtered = projects.filter((p) =>
+          p.title.toLowerCase().includes(query)
+        );
+        render(filtered);
+      }
+
+      showAll();
+    </script>
+  </body>
+</html>
